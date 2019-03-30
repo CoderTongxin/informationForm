@@ -1,18 +1,142 @@
 <!DOCTYPE html>
-<html>
+ <html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link href="http://cdn.staticfile.org/semantic-ui/2.2.7/semantic.min.css" rel="stylesheet">
     <!--<link href="calendar.css" rel="stylesheet" > -->
 
-    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-    <script src="http://cdn.staticfile.org/semantic-ui/2.2.7/semantic.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="semantic/out/semantic.min.css">
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="semantic/out/semantic.min.js"></script>
     <!-- <script src="calendar.js" charset="utf-8"></script> -->
     <title>homework</title>
+    <style>
+      #container {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        margin-top: 60px;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .exchange {
+        display: inline-block;
+        width: auto;
+        height: 2.1666em;
+      }
+    </style>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="container">
+      <div id="form">
+        <form class="ui form raised grey segment">
+          <h4 class="ui dividing header center">货币价格查询</h4>
+          <div class="field">
+            <label>时间区间</label>
+            <div class="two fields">
+              <div class="field">
+                <input type="text" name="start-date" placeholder="起始日期">
+              </div>
+              <div class="field">
+                <input type="text" name="end-date" placeholder="截止日期">
+              </div>
+            </div>
+          </div>
+            <div class="field">
+              <label>币种</label>
+              <div class="ui fluid multiple search selection dropdown">
+                <input type="hidden" name="currency">
+                <i class="dropdown icon"></i>
+                <div class="default text">币种</div>
+                <div class="menu">
+                  <div class="item" data-value="af"><img class="exchange" src="semantic/exchange/okex.png">BTC</div>
+                  <div class="item" data-value="ax"><img class="exchange" src="semantic/exchange/okex.png">ETH</div>
+                  <div class="item" data-value="al"><img class="exchange" src="semantic/exchange/okex.png">XRP</div>
+                  <div class="item" data-value="dz"><img class="exchange" src="semantic/exchange/okex.png">LTC</div>
+                  <div class="item" data-value="as"><img class="exchange" src="semantic/exchange/okex.png">BCH</div>
+                  <div class="item" data-value="ar"><img class="exchange" src="semantic/exchange/okex.png">USDT</div>
+                  <div class="item" data-value="ad"><img class="exchange" src="semantic/exchange/okex.png">EOS</div>
+                  <div class="item" data-value="ao"><img class="exchange" src="semantic/exchange/okex.png">ETC</div>
+                  <div class="item" data-value="ai"><img class="exchange" src="semantic/exchange/okex.png">IOTA</div>
+                  <div class="item" data-value="ag"><img class="exchange" src="semantic/exchange/okex.png">NEO</div>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label>精度</label>
+              <div class="ui fluid search selection dropdown" multiple="">
+                <input type="hidden" name="accuracy">
+                <i class="dropdown icon"></i>
+                <div class="default text">精度</div>
+                <div class="menu">
+                  <div class="item" data-value="mr">10</div>
+                  <div class="item" data-value="mu">20</div>
+                  <div class="item" data-value="yt">50</div>
+                  <div class="item" data-value="mx">100</div>
+                  <div class="item" data-value="fm">150</div>
+                  <div class="item" data-value="sm">200</div>
+                  <div class="item" data-value="gs">300</div>
+                  <div class="item" data-value="st">500</div>
+                  <div class="item" data-value="es">1000</div>
+                  <div class="item" data-value="lk">2000</div>
+                </div>
+              </div>
+            </div>
+
+          <div class="two field">
+            <div class="field">
+              <label>交易对</label>
+              <div class="ui fluid search selection dropdown">
+                <input type="hidden" name="transaction-pair">
+                <i class="dropdown icon"></i>
+                <div class="default text">请选择交易对</div>
+                <div class="menu">
+                  <div class="item" data-value="okex">BTC/USDT</div>
+                  <div class="item" data-value="huobi">ETH/USDT</div>
+                  <div class="item" data-value="bian">XRP/USDT</div>
+                  <div class="item" data-value="bian">XRP/USDT</div>
+                  <div class="item" data-value="bian">XRP/USDT</div>
+                  <div class="item" data-value="okex"> BTC/USDT</div>
+                  <div class="item" data-value="huobi">ETH/USDT</div>
+                  <div class="item" data-value="bian">XRP/USDT</div>
+                  <div class="item" data-value="bian">XRP/USDT</div>
+                  <div class="item" data-value="bian">XRP/USDT</div>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label>交易所</label>
+              <div class="ui fluid search selection dropdown multiple">
+                <input type="hidden" disabled name="Exchange">
+                <i class="dropdown icon"></i>
+                <div class="default text">请选择交易所</div>
+                <div class="menu">
+                  <div class="item" data-value="okex"> <img class="exchange" src="semantic/exchange/okex.png">OKEX</div>
+                  <div class="item" data-value="huobi"><img class="exchange" src="semantic/exchange/huobi.png">火币</div>
+                  <div class="item" data-value="bian"><img class="exchange" src="semantic/exchange/bian.png">币安</div>
+                  <div class="item" data-value="bitmex"><img class="exchange" src="semantic/exchange/bitmex.png">BitMEX</div>
+                  <div class="item" data-value="bitz"><img class="exchange" src="semantic/exchange/bitz.jpg">Bit-Z</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ui grey button" tabindex="0">提交查询</div>
+        </form>
+      </div>
+    </div>
     <!-- built files will be auto injected -->
   </body>
+
+<script>
+  $(document).ready(function () {
+    $('.ui.dropdown')
+      .dropdown();
+
+  })
+</script>
 </html>
