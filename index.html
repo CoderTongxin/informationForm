@@ -11,6 +11,8 @@
       integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
       crossorigin="anonymous"></script>
     <script src="semantic/out/semantic.min.js"></script>
+    <script src="_semantic-ui-calendar@0.0.8@semantic-ui-calendar/dist/calendar.js" charset="utf-8"></script>
+    <link href="_semantic-ui-calendar@0.0.8@semantic-ui-calendar/dist/calendar.css" rel="stylesheet" >
     <!-- <script src="calendar.js" charset="utf-8"></script> -->
     <title>homework</title>
     <style>
@@ -29,21 +31,36 @@
         width: auto;
         height: 2.1666em;
       }
+      .ui .label >img {
+        margin-right: 5px;
+      }
+      .ui.multiple.dropdown>.label {
+        font-size: 0.9em;
+      }
+      #form{
+        width: 40%;
+      }
     </style>
   </head>
   <body>
     <div id="container">
       <div id="form">
         <form class="ui form raised grey segment">
-          <h4 class="ui dividing header center">货币价格查询</h4>
+          <h4 class="ui dividing header center">货币资料价格查询</h4>
           <div class="field">
             <label>时间区间</label>
             <div class="two fields">
-              <div class="field">
-                <input type="text" name="start-date" placeholder="起始日期">
+                <div class=" field ui calendar" id="startDate">
+                  <div class="ui input left icon">
+                    <i class="calendar icon"></i>
+                    <input type="text" placeholder="起始日期" value="">
+                  </div>
               </div>
-              <div class="field">
-                <input type="text" name="end-date" placeholder="截止日期">
+              <div class="field ui calendar " id="endDate">
+                <div class="ui input left icon">
+                  <i class="calendar icon"></i>
+                  <input type="text" placeholder="截止日期" value="">
+                </div>
               </div>
             </div>
           </div>
@@ -52,18 +69,18 @@
               <div class="ui fluid multiple search selection dropdown">
                 <input type="hidden" name="currency">
                 <i class="dropdown icon"></i>
-                <div class="default text">币种</div>
+                <div class="default text">请选择币种</div>
                 <div class="menu">
-                  <div class="item" data-value="af"><img class="exchange" src="semantic/exchange/okex.png">BTC</div>
-                  <div class="item" data-value="ax"><img class="exchange" src="semantic/exchange/okex.png">ETH</div>
-                  <div class="item" data-value="al"><img class="exchange" src="semantic/exchange/okex.png">XRP</div>
-                  <div class="item" data-value="dz"><img class="exchange" src="semantic/exchange/okex.png">LTC</div>
-                  <div class="item" data-value="as"><img class="exchange" src="semantic/exchange/okex.png">BCH</div>
-                  <div class="item" data-value="ar"><img class="exchange" src="semantic/exchange/okex.png">USDT</div>
-                  <div class="item" data-value="ad"><img class="exchange" src="semantic/exchange/okex.png">EOS</div>
-                  <div class="item" data-value="ao"><img class="exchange" src="semantic/exchange/okex.png">ETC</div>
-                  <div class="item" data-value="ai"><img class="exchange" src="semantic/exchange/okex.png">IOTA</div>
-                  <div class="item" data-value="ag"><img class="exchange" src="semantic/exchange/okex.png">NEO</div>
+                  <div class="item" data-value="af"><img class="exchange" src="semantic/currency/btc.png">BTC</div>
+                  <div class="item" data-value="ax"><img class="exchange" src="semantic/currency/eth.png">ETH</div>
+                  <div class="item" data-value="al"><img class="exchange" src="semantic/currency/xrp.png">XRP</div>
+                  <div class="item" data-value="dz"><img class="exchange" src="semantic/currency/ltc.png">LTC</div>
+                  <div class="item" data-value="as"><img class="exchange" src="semantic/currency/bch.svg">BCH</div>
+                  <div class="item" data-value="ar"><img class="exchange" src="semantic/currency/usdt.png">USDT</div>
+                  <div class="item" data-value="ad"><img class="exchange" src="semantic/currency/eos.png">EOS</div>
+                  <div class="item" data-value="ao"><img class="exchange" src="semantic/currency/etc.png">ETC</div>
+                  <div class="item" data-value="ai"><img class="exchange" src="semantic/currency/iota.png">IOTA</div>
+                  <div class="item" data-value="ag"><img class="exchange" src="semantic/currency/neo.png">NEO</div>
                 </div>
               </div>
             </div>
@@ -72,7 +89,7 @@
               <div class="ui fluid search selection dropdown" multiple="">
                 <input type="hidden" name="accuracy">
                 <i class="dropdown icon"></i>
-                <div class="default text">精度</div>
+                <div class="default text">请选择精度</div>
                 <div class="menu">
                   <div class="item" data-value="mr">10</div>
                   <div class="item" data-value="mu">20</div>
@@ -118,9 +135,9 @@
                 <div class="menu">
                   <div class="item" data-value="okex"> <img class="exchange" src="semantic/exchange/okex.png">OKEX</div>
                   <div class="item" data-value="huobi"><img class="exchange" src="semantic/exchange/huobi.png">火币</div>
-                  <div class="item" data-value="bian"><img class="exchange" src="semantic/exchange/bian.png">币安</div>
+                  <div class="item" data-value="bian"><img class="exchange" src="semantic/exchange/binance.png">币安</div>
                   <div class="item" data-value="bitmex"><img class="exchange" src="semantic/exchange/bitmex.png">BitMEX</div>
-                  <div class="item" data-value="bitz"><img class="exchange" src="semantic/exchange/bitz.jpg">Bit-Z</div>
+                  <div class="item" data-value="bitz"><img class="exchange" src="semantic/exchange/bitz.png">Bit-Z</div>
                 </div>
               </div>
             </div>
@@ -136,7 +153,34 @@
   $(document).ready(function () {
     $('.ui.dropdown')
       .dropdown();
+    $('#startDate,#endDate').calendar({
+      type: 'date',
+      maxDate:new Date(),
+      formatter: { // 自定义日期的格式
+        date: function(date, settings) {
+          console.log(date)
+          if (!date) return '';
+          let year  = date.getFullYear();
+          let month = date.getMonth() + 1;
+          let day   = date.getDate();
 
+          month = month < 10 ? '0'+month : month;
+          day   = day   < 10 ? '0'+day   : day;
+
+          return year + '-' + month + '-' + day;
+        }
+      },
+
+      text: {
+        days: ['日', '一', '二', '三', '四', '五', '六'],
+        months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+        monthsShort: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+        today: '今天',
+        now: '现在',
+        am: 'AM',
+        pm: 'PM'
+      },
+    });
   })
 </script>
 </html>
